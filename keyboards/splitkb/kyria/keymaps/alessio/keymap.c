@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |Ctrl/Tab|   Z  |   X  |   C  |   V  |   B  | [ {  |CapsLk|  |F-keys|  ] } |   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | LGUI | back | Space| Nav  |  | Sym  | enter| AltGr| RGUI | Menu |
+ *                        |      | LGUI | back | Space| Nav  |  | Sym  | enter| del  | RGUI | Menu |
  *                        |      |      | space|      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -193,14 +193,19 @@ bool oled_task_user(void) {
 
         // Write host Keyboard LED Status to OLEDs
         led_t led_usb_state = host_keyboard_led_state();
-        oled_write_P(led_usb_state.num_lock    ? PSTR("NUMLCK ") : PSTR("       "), false);
-        oled_write_P(led_usb_state.caps_lock   ? PSTR("CAPLCK ") : PSTR("       "), false);
-        oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
+        //oled_write_P(led_usb_state.num_lock    ? PSTR("NUMLCK ") : PSTR("       "), false);
+        //oled_write_P(led_usb_state.caps_lock   ? PSTR("CAPLCK ") : PSTR("       "), false);
+        //oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
+        oled_write_P(PSTR("NUM "), led_usb_state.num_lock);
+        oled_write_P(PSTR("CAP "), led_usb_state.caps_lock);
+        oled_write_P(PSTR("SCR"), led_usb_state.scroll_lock);
+
+
     } else {
         // clang-format off
         //https://javl.github.io/image2cpp/
         //draw mode: vertical
-        static const char PROGMEM kyria_logo[] = {
+        static const char PROGMEM alessio_logo[] = {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0xc0, 0xe0,
             0xe0, 0xf0, 0xf0, 0xf8, 0xf8, 0xfc, 0xfc, 0xfc, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff,
             0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfc, 0xfc, 0xfc, 0xf8, 0xf8, 0xf8,
@@ -267,7 +272,7 @@ bool oled_task_user(void) {
             0x1f, 0x0f, 0x00, 0x00, 0x1f, 0x1f, 0x00, 0x00, 0x00, 0x0f, 0x1f, 0x10, 0x10, 0x1f, 0x0f, 0x00
         };
         // clang-format on
-        oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
+        oled_write_raw_P(alessio_logo, sizeof(alessio_logo));
     }
     return false;
 }
