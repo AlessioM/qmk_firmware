@@ -14,12 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "keymap_german.h"
 
 enum layers {
     _BASE = 0,
     _NAV,
     _SYM,
     _FUNCTION,
+    _UMLAUT,
 };
 
 
@@ -29,6 +31,8 @@ enum layers {
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
 #define FKEYS    MO(_FUNCTION)
+#define UML      MO(_UMLAUT)
+
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
@@ -45,23 +49,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: BASE
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  Esc   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
+ * |  Esc   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  AltGr |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |shift   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |Ctrl/' "|
+ * |shift   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  |      | RShift |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |Ctrl/Tab|   Z  |   X  |   C  |   V  |   B  | [ {  |CapsLk|  |F-keys|  ] } |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * |Ctrl/Tab|   Z  |   X  |   C  |   V  |   B  |      |CapsLk|  |F-keys|      |   N  |   M  |  ,   |  .   |  -   | RCtl   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | LGUI | back | Space| Nav  |  | Sym  | enter| del  | RGUI | Menu |
+ *                        |      | LGUI | back | Space| Nav  |  | Sym  | enter| Del  | UML  | Menu |
  *                        |      |      | space|      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_BASE] = LAYOUT(
-     KC_ESC  , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_RALT,
-     KC_LSFT , KC_A ,  KC_S   ,  LCTL_T(KC_D)  ,   LSFT_T(KC_F) ,   KC_G ,                                        KC_H,   RSFT_T(KC_J) ,  RCTL_T(KC_K) ,   KC_L ,KC_SCLN,CTL_QUOT,
-     MT(MOD_LCTL,KC_TAB) , KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_N,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                                _______, KC_LGUI, KC_BSPC, KC_SPC , NAV   ,     SYM    , KC_ENT ,KC_DEL, KC_RGUI, KC_APP
+     KC_ESC  , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        DE_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_RALT,
+     KC_LSFT , KC_A ,  KC_S   ,  LCTL_T(KC_D)  ,   LSFT_T(KC_F) ,   KC_G ,                                        KC_H,   RSFT_T(KC_J) ,  RCTL_T(KC_K) ,   KC_L ,_______,KC_RSFT,
+     MT(MOD_LCTL,KC_TAB) , DE_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , _______,KC_CAPS,     FKEYS  , _______, KC_N,   KC_M ,DE_COMM, DE_DOT ,DE_MINS, MOD_RCTL,
+                                _______, KC_LGUI, KC_BSPC, KC_SPC , NAV   ,     SYM    , KC_ENT ,KC_DEL, UML , KC_APP
     ),
 
+/*
+ * Layer template
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |   €  |      |      |                              |      |  Ü   |      |   Ö  |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |  Ä   |  ß   |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_UMLAUT] = LAYOUT(
+      _______, _______, _______, DE_EURO, _______, _______,                                     _______, DE_UDIA, _______, DE_ODIA, _______, _______,
+      _______, DE_ADIA, DE_SS  , _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
 
 /*
  * Nav Layer: Media, navigation
@@ -83,6 +107,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, KC_SLCK, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
+
+/*
+ * Sym Layer: Numbers and symbols
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |    `   |  !   |  ?   |  (   |  )   |  |   |                              |   \  |  /   |  +   |  *   |  %   |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |  @   |      |  [   |  ]   |  #   |                              |   ^  |  _   |  -   |  "   |  '   |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |   €    |  $   |      |  {   |  }   |  ~   |      |      |  |      |      |   &  |  =   |  <   |  >   |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
 
 /*
  * Sym Layer: Numbers and symbols
@@ -187,25 +226,23 @@ bool oled_task_user(void) {
             case _FUNCTION:
                 oled_write_P(PSTR("Function\n"), false);
                 break;
+            case _UMLAUT:
+                oled_write_P(PSTR("Umlaut\n"), false);
+                break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
         }
 
         // Write host Keyboard LED Status to OLEDs
         led_t led_usb_state = host_keyboard_led_state();
-        //oled_write_P(led_usb_state.num_lock    ? PSTR("NUMLCK ") : PSTR("       "), false);
-        //oled_write_P(led_usb_state.caps_lock   ? PSTR("CAPLCK ") : PSTR("       "), false);
-        //oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
-        oled_write_P(PSTR("NUM "), led_usb_state.num_lock);
-        oled_write_P(PSTR("CAP "), led_usb_state.caps_lock);
-        oled_write_P(PSTR("SCR"), led_usb_state.scroll_lock);
-
-
+        oled_write_P(led_usb_state.num_lock    ? PSTR("NUMLCK ") : PSTR("       "), false);
+        oled_write_P(led_usb_state.caps_lock   ? PSTR("CAPLCK ") : PSTR("       "), false);
+        oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
     } else {
         // clang-format off
         //https://javl.github.io/image2cpp/
         //draw mode: vertical
-        static const char PROGMEM alessio_logo[] = {
+        static const char PROGMEM kyria_logo[] = {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0xc0, 0xe0,
             0xe0, 0xf0, 0xf0, 0xf8, 0xf8, 0xfc, 0xfc, 0xfc, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff,
             0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfc, 0xfc, 0xfc, 0xf8, 0xf8, 0xf8,
@@ -272,7 +309,7 @@ bool oled_task_user(void) {
             0x1f, 0x0f, 0x00, 0x00, 0x1f, 0x1f, 0x00, 0x00, 0x00, 0x0f, 0x1f, 0x10, 0x10, 0x1f, 0x0f, 0x00
         };
         // clang-format on
-        oled_write_raw_P(alessio_logo, sizeof(alessio_logo));
+        oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
     return false;
 }
