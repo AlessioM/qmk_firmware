@@ -117,12 +117,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  @   |      |  [   |  ]   |  #   |                              |   ^  |  _   |  -   |  "   |  '   |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |   €    |  $   |      |  {   |  }   |  ~   |      |      |  |      |      |   &  |  =   |  <   |  >   |      |        |
+ * |        |  $   |      |  {   |  }   |  ~   |      |      |  |      |      |   &  |  =   |  <   |  >   |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
+    [_SYM] = LAYOUT(
+      DE_ACUT ,   DE_EXLM ,   DE_QUES ,   DE_LPRN ,   DE_RPRN ,   DE_PIPE ,                                       DE_BSLS ,   DE_SLSH ,   DE_PLUS ,   DE_ASTR ,   DE_PERC , _______ ,
+     _______ , DE_AT,  _______ , DE_LBRC,  DE_RBRC, DE_HASH,                                     DE_CIRC, DE_UNDS, DE_MINS, DE_DQUO, DE_QUOT, _______,
+     _______ , DE_DLR, _______, DE_LCBR, DE_RCBR, DE_TILD, _______, _______, _______,  _______, DE_AMPR, DE_EQL, DE_LABK, DE_RABK,  _______, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
 
 /*
  * Sym Layer: Numbers and symbols
@@ -138,12 +144,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_SYM] = LAYOUT(
-      KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
-     KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
-     KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______, _______, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
+    // [_SYM] = LAYOUT(
+    //   KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
+    //  KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
+    //  KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______, _______, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
+    //                              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    // ),
 
 /*
  * Function Layer: Function keys
